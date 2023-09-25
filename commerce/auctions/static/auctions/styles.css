@@ -1,0 +1,15 @@
+body {
+    padding: 10px;
+}
+
+.watchlist-button {
+    display: inline-block;
+    background-color: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+  }
+
+  .watchlist-button:hover {
+    background-color: darkgrey;
+  }

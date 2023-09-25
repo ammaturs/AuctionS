@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% if user.is_authenticated %}
+       {% for item in listings %}
+                <div style="border: 2px solid; padding:4px; margin:5px; display: flex;">
+                    <div style="flex: 0 0 auto; margin-left: 10px;">
+                        {% if item.image %}
+                            <div>
+                                <a href="{% url 'listing' item.id %}"><img src="{{ item.image }}" width="300px" height="300px"></a>
+                            </div>
+                        {% else %}
+                            <div>
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdDfOU2dKmC9TLY75CcD3a4PG0AjXnbaw2Jw&usqp=CAU" width="300px" height="300px">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div style="margin-left:50px;">
+                        <div>
+                            <a href="{% url 'listing' item.id %}" style="color: black; text-decoration: none;"><h1>{{ item.title }}</h1></a>
+
+                        </div>
+                        <div>
+                            <b style="margin-right:6px; font-size: 18px;">Price:</b>${{ item.price|floatformat:2}}
+                        </div>
+                        <div>
+                            Category: {{ item.category|title }}
+                        </div>
+                        <div>
+                            {{ item.description }}
+                        </div>
+                        <div style = "color:grey;">
+                            Created on: {{ item.created }}
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    {% else %}
+        Log in to see Active Listings or Create one
+    {% endif %}
+
+{% endblock %}

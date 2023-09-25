@@ -1,0 +1,61 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing: {{ listing.title }}</h2>
+    {% if listing.in_watchlist == 'yes' %}
+        <div>
+            <a href="{% url 'watchlist' listing.id 'remove' %}"><button type="button" class="btn btn-secondary">Remove from Watchlist</button></a>
+        </div>
+    {% else %}
+        <div>
+            <a href="{% url 'watchlist' listing.id 'add' %}"><button type="button" class="btn btn-secondary">Add to Watchlist</button></a>
+        </div>
+    {% endif %}
+
+    <div>
+        <img src="{{ listing.image }}" width="500px" height="500px" style="margin:5px;"></a>
+    </div>
+    <div style="margin-top:-10px;">
+        {{ listing.description }}
+    </div>
+    <div>
+        <b style="font-size: 30px;">Current Bid: ${{ listing.price|floatformat:2}}</b>
+    </div>
+    <form action = "{% url 'listing' listing.id %}" method="post"
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form.bid }} <br>
+            <button type="submit" class="btn btn-primary">Place Bid</button>
+        </div>
+    </form>
+    <div>
+        <b style="font-size: 30px;">Details</b>
+        <ul>
+            <li>Listed by: {{ listing.user }}</li>
+            <li>Category: {{ listing.category|title }}</li>
+        </ul>
+    </div>
+    <div>
+        <b style="font-size: 20px;">Comments</b>
+        <ul>
+            {% for comment in comments %}
+                <p>
+                    <li><b>Comment by {{comment.user}}</b></li>
+                    {{ comment.comment }}<br>
+                    <div style = "color:grey;">
+                        Posted on {{ comment.created }}
+                    </div>
+                </p>
+            {% endfor %}
+        </ul>
+
+        <form action = "{% url 'listing' listing.id %}" method="post">
+            <div class="form-group">
+                {% csrf_token %}
+                {{ comment_form.comment }} <br>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

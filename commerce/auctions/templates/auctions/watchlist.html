@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2> Your Watchlist </h2>
+    {% for entry in list %}
+            {% for auct in entry.listing.all %}
+                <div style="border: 2px solid; padding:4px; margin:5px; display: flex;">
+                    <div style="flex: 0 0 auto; margin-left: 10px;">
+                        <a href="{% url 'listing' auct.pk %}"><img src="{{ auct.image }}" width="300px" height="300px" style="margin-top:0px;"></a>
+                    </div>
+                    <div style="margin-left:50px;">
+                        <div>
+                            <a href="{% url 'listing' auct.pk %}" style="color: black; text-decoration: none;"><h1>{{ auct.title }}</h1></a>
+                        </div>
+                        <div>
+                            <b style="margin-right:6px; font-size: 18px;">Price:</b>${{ auct.price|floatformat:2}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    {% endfor %}
+
+{% endblock %}
+
+<div style="border: 2px solid; padding:4px; margin:5px; display: flex;">
+    <div style="flex: 0 0 auto; margin-left: 10px;">
+        <a href="{% url 'listing' auct.pk %}"><img src="{{ auct.image }}" width="500px" height="500px" style="margin-top:0px;"></a>
+    </div>
+    <div style="margin-left:50px;">
+        <div>
+            <a href="{% url 'listing' auct.pk %}" style="color: black; text-decoration: none;"><h1>{{ auct.title }}</h1></a>
+        </div>
+
+    </div>
+</div>
+
